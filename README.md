@@ -5,7 +5,7 @@ While strides have been made in deep learning based Bengali Optical Character Re
 
 Dataset: https://www.kaggle.com/datasets/reasat/badlad-train
 
-model weights: https://drive.google.com/drive/folders/1CR3UkFA6hbPU1YxnjuHxB4ig-CMRjlmf?usp=sharing
+Model Weights: https://drive.google.com/drive/folders/1CR3UkFA6hbPU1YxnjuHxB4ig-CMRjlmf?usp=sharing
 
 Kaggle Competition: https://www.kaggle.com/competitions/dlsprint2/data
 
