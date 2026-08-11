@@ -9,4 +9,24 @@ Model Weights: https://drive.google.com/drive/folders/1CR3UkFA6hbPU1YxnjuHxB4ig-
 
 Kaggle Competition: https://www.kaggle.com/competitions/dlsprint2/data
 
+## Leaderboard
 
+Maintainer-run evaluation on the private paper hidden test (13 328 images, COCO mask AP).
+Decode + score scripts live in [`leaderboard/`](leaderboard/); set up with `cd leaderboard && uv sync`.
+
+### Baseline vs paper Table 3 (2026-07-25)
+
+Mask R-CNN R50-FPN (ImageNet-scratch, `score_thresh=0.05`). Four domains match paper
+to < 0.1 AP; Government Documents and Property Deeds are consistently higher locally —
+performance seems to have improved; needs investigation.
+
+**Mask AP ×100 — local / paper (M-RCNN | ImgNet | Mask)**
+
+| Domain | n | P | Tx | I | Tb |
+| --- | ---: | --- | --- | --- | --- |
+| Historical Newspapers | 345 | 60.3 / 60.3 | 18.3 / 18.3 | 57.3 / 57.3 | 0.0 / 0.0 |
+| New Newspapers | 65 | 41.4 / 41.4 | 13.1 / 13.2 | 45.2 / 45.2 | 1.9 / 1.9 |
+| Magazine and Books | 11674 | 61.8 / 61.8 | 25.3 / 25.3 | 44.9 / 44.9 | 2.3 / 2.3 |
+| Liberation War Documents | 402 | 71.1 / 71.2 | 26.8 / 26.8 | 1.1 / 1.0 | 40.1 / 40.1 |
+| Government Documents | 514 | **49.4** / 39.1 | **23.7** / 18.7 | **26.1** / 19.4 | **5.1** / 3.7 |
+| Property Deeds | 328 | **38.0** / 0.6 | **14.2** / 0.7 | **13.3** / 2.1 | **3.2** / 0.6 |
