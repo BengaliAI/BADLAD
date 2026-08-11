@@ -2,7 +2,7 @@
 name = "badlad-leaderboard"
 version = "0.1.0"
 description = "Maintainer-run BaDLAD DLA leaderboard decode + score tooling"
-readme = "../README.md"
+readme = "README.md"
 requires-python = ">=3.12,<3.13"
 dependencies = [
   "torch==2.5.1",

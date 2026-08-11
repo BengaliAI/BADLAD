@@ -15,12 +15,11 @@ Maintainer-run evaluation on the private paper hidden test (13 328 images, COCO 
 Decode + score scripts live in [`leaderboard/`](leaderboard/).
 
 ```bash
-cd leaderboard
 uv sync                          # installs everything except detectron2
 uv pip install 'git+https://github.com/facebookresearch/detectron2.git'  # needs CUDA toolkit
 ```
 
-Full pinned versions in `leaderboard/requirements.txt`; `uv.lock` covers the uv-resolvable subset.
+Full pinned versions in `requirements.txt`; `uv.lock` covers the uv-resolvable subset.
 
 ### Baseline vs paper Table 3 (2026-07-25)
 
