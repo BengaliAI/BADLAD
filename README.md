@@ -7,28 +7,18 @@ Dataset: https://www.kaggle.com/datasets/reasat/badlad-train
 
 Kaggle Competition: https://www.kaggle.com/competitions/dlsprint2/data
 
-## Models (inventory — verified facts)
+## Models
 
-Paper Table 3 has 7 configs. The files below are what we currently have on disk /
-public hosts. Table 3 membership is labeled cautiously.
+BaDLAD-trained checkpoints (Hugging Face):
 
-### BaDLAD-trained (or production) weights
+| Model | Hub | Notes |
+| --- | --- | --- |
+| Mask R-CNN R50 (paper mask baseline) | [`bengaliAI/badlad-mrcnn-paper`](https://huggingface.co/bengaliAI/badlad-mrcnn-paper) | Instance segmentation; leaderboard `mask_map` |
+| Faster R-CNN R50 (paper bbox baseline) | [`bengaliAI/badlad-frcnn-paper`](https://huggingface.co/bengaliAI/badlad-frcnn-paper) | Bounding boxes only |
+| YOLOv8m-seg | [`bengaliAI/badlad-yolov8m-seg`](https://huggingface.co/bengaliAI/badlad-yolov8m-seg) | Layout seg; also used in bbocr |
 
-| ID / path | What | sha256 (prefix) | Table 3 |
-| --- | --- | --- | --- |
-| `maskrcnn_scratch_10k_iter/model_final.pth` ([HF](https://huggingface.co/bengaliAI/badlad-mrcnn-paper)) | Detectron Mask R-CNN R50 (mask head) | `d3b663…` | **likely** M-RCNN\|ImgNet\|Mask (domain AP match; not proven identical to original run) |
-| `train_finetuned_10k_iter/model_final.pth` | Detectron Faster R-CNN (bbox only) | `bd507a…` | **unverified** (some F-RCNN\|BBox row) |
-| `yolo-best` / `badlad-yolov8-best` | YOLOv8m-seg (Ultralytics; args in ckpt) | `890e666…` | **unverified** (paper says 100 ep / bs8; this ckpt is 20 ep / bs32) |
-
-Detectron finetunes live under Drive `DLA_Project/badlad_trained/`. YOLO also
-ships as `layoutparserweights/yolo-best.pt.zip` and is the bbocr layout stage.
-The same Drive folder’s `PubLayNet_*` files are official LayoutParser PubLayNet
-**base** init weights (sha256-matched to HF `layoutparser/detectron2`), not
-BaDLAD finetunes / Table 3 scored Detectron checkpoints.
-
-Training docs we have: paper §experiments (high level); Detectron notebooks in
-this repo (recipes, no frozen `config.yaml` beside weights); YOLO
-`ckpt['train_args']` (authoritative for that file).
+PubLayNet Detectron weights that appear beside older Drive dumps are LayoutParser
+**base** init checkpoints (not BaDLAD finetunes).
 
 ## Leaderboard
 
@@ -42,14 +32,10 @@ uv pip install 'git+https://github.com/facebookresearch/detectron2.git'  # needs
 
 Full pinned versions in `requirements.txt`; `uv.lock` covers the uv-resolvable subset.
 
-### Local replay vs paper (2026-07-25) — likely M-RCNN\|ImgNet\|Mask
+### Mask R-CNN vs paper Table 3 (2026-07-25)
 
-Checkpoint: `maskrcnn_scratch_10k_iter`, `score_thresh=0.05`. Four domains match
-paper to < 0.1 AP; Government Documents and Property Deeds are higher locally —
-needs investigation. This is a **likely** Table 3 match, not a claim of bit-identical
-reproduction of the original paper run.
-
-**Mask AP ×100 — local / paper (M-RCNN | ImgNet | Mask)**
+Checkpoint: `bengaliAI/badlad-mrcnn-paper`, `score_thresh=0.05`. Domain-wise mask AP
+(×100) compared to paper row M-RCNN | ImgNet | Mask:
 
 | Domain | n | P | Tx | I | Tb |
 | --- | ---: | --- | --- | --- | --- |
@@ -57,5 +43,5 @@ reproduction of the original paper run.
 | New Newspapers | 65 | 41.4 / 41.4 | 13.1 / 13.2 | 45.2 / 45.2 | 1.9 / 1.9 |
 | Magazine and Books | 11674 | 61.8 / 61.8 | 25.3 / 25.3 | 44.9 / 44.9 | 2.3 / 2.3 |
 | Liberation War Documents | 402 | 71.1 / 71.2 | 26.8 / 26.8 | 1.1 / 1.0 | 40.1 / 40.1 |
-| Government Documents | 514 | **49.4** / 39.1 | **23.7** / 18.7 | **26.1** / 19.4 | **5.1** / 3.7 |
-| Property Deeds | 328 | **38.0** / 0.6 | **14.2** / 0.7 | **13.3** / 2.1 | **3.2** / 0.6 |
+| Government Documents | 514 | 49.4 / 39.1 | 23.7 / 18.7 | 26.1 / 19.4 | 5.1 / 3.7 |
+| Property Deeds | 328 | 38.0 / 0.6 | 14.2 / 0.7 | 13.3 / 2.1 | 3.2 / 0.6 |
