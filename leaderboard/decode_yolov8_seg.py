@@ -60,6 +60,11 @@ def main() -> None:
     p.add_argument("--out-dir", type=Path, required=True)
     p.add_argument("--conf", type=float, default=0.05)
     p.add_argument("--imgsz", type=int, default=640)
+    p.add_argument(
+        "--retina-masks",
+        action="store_true",
+        help="high-res masks (more VRAM); default off for 8GB GPUs",
+    )
     p.add_argument("--device", default="0" if torch.cuda.is_available() else "cpu")
     p.add_argument("--limit", type=int, default=0)
     p.add_argument("--save-every", type=int, default=50)
@@ -99,7 +104,7 @@ def main() -> None:
             imgsz=args.imgsz,
             device=args.device,
             verbose=False,
-            retina_masks=True,
+            retina_masks=args.retina_masks,
         )
         preds.extend(instances_to_coco(results[0], image_id))
         done.add(image_id)
