@@ -2,7 +2,7 @@
 """Publish a scored run to the public BaDLAD results dataset.
 
 Reads private metrics.json (from score.py) and upserts one row into
-bengaliAI/badlad-dla-results results.csv. Only score fields leave the
+bengaliAI/badlad-results results.csv. Only score fields leave the
 machine — never preds, gold, or images.
 """
 
@@ -17,7 +17,7 @@ from pathlib import Path
 
 from huggingface_hub import HfApi, hf_hub_download
 
-RESULTS_REPO = "bengaliAI/badlad-dla-results"
+RESULTS_REPO = "bengaliAI/badlad-results"
 COLUMNS = [
     "rank",
     "model_id",

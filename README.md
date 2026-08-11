@@ -30,8 +30,8 @@ are **not** released. Scores are produced by Bengali.AI maintainers.
 
 | | |
 | --- | --- |
-| **Board** | https://huggingface.co/spaces/bengaliAI/badlad-dla-leaderboard |
-| **Results table** | https://huggingface.co/datasets/bengaliAI/badlad-dla-results |
+| **Board** | https://huggingface.co/spaces/bengaliAI/badlad-leaderboard |
+| **Results table** | https://huggingface.co/datasets/bengaliAI/badlad-results |
 | **Public train data** | https://www.kaggle.com/datasets/reasat/badlad-train |
 
 ### How to get your model evaluated
