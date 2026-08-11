@@ -1,0 +1,26 @@
+[project]
+name = "badlad-leaderboard"
+version = "0.1.0"
+description = "Maintainer-run BaDLAD DLA leaderboard decode + score tooling"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "torch==2.5.1",
+  "detectron2 @ git+https://github.com/facebookresearch/detectron2.git",
+  "pycocotools==2.0.11",
+  "opencv-python-headless==4.10.0.84",
+  "numpy==2.0.1",
+  "pandas==2.3.2",
+  "tqdm==4.67.1",
+]
+
+[tool.uv]
+package = false
+
+[[tool.uv.index]]
+name = "pytorch-cu124"
+url = "https://download.pytorch.org/whl/cu124"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu124" }
