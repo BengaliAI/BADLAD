@@ -188,6 +188,14 @@ def main() -> None:
             }
             for d, v in by_domain.items()
         },
+        "bbox_map_by_domain": {
+            d: {
+                "bbox_map": v["bbox_map"],
+                "bbox_map_by_class": v["bbox_map_by_class"],
+                "n_images": v["n_images"],
+            }
+            for d, v in by_domain.items()
+        },
         "backend": args.backend,
         "scorer_commit": args.scorer_commit,
         "decode_commit": args.decode_commit,
