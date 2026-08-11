@@ -37,7 +37,7 @@ are **not** released. Scores are produced by Bengali.AI maintainers.
 ### How to get your model evaluated
 
 1. Put a downloadable checkpoint on the Hub (or another stable URL).
-2. Open a **[BaDLAD DLA evaluation request](https://github.com/BengaliAI/BADLAD/issues/new)** issue.
+2. Open a **[BaDLAD evaluation request](https://github.com/BengaliAI/BADLAD/issues/new?template=badlad-eval-request.md)** issue.
 3. Maintainers run decode on the closed test set and publish **mask mAP only** (predictions are not returned).
 
 Maintainer tooling lives in [`leaderboard/`](leaderboard/).

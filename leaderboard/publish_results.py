@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Publish a scored run to the public BaDLAD DLA results dataset.
+"""Publish a scored run to the public BaDLAD results dataset.
 
 Reads private metrics.json (from score.py) and upserts one row into
 bengaliAI/badlad-dla-results results.csv. Only score fields leave the

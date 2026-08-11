@@ -1,5 +1,5 @@
 ---
-name: BaDLAD DLA evaluation request
+name: BaDLAD evaluation request
 about: Ask maintainers to score a model on the private BaDLAD paper hidden test
 title: "[eval] "
 labels: ["evaluation"]
