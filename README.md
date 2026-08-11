@@ -22,24 +22,13 @@ public hosts. Table 3 membership is labeled cautiously.
 
 Detectron finetunes live under Drive `DLA_Project/badlad_trained/`. YOLO also
 ships as `layoutparserweights/yolo-best.pt.zip` and is the bbocr layout stage.
+The same Drive folder’s `PubLayNet_*` files are official LayoutParser PubLayNet
+**base** init weights (sha256-matched to HF `layoutparser/detectron2`), not
+BaDLAD finetunes / Table 3 scored Detectron checkpoints.
 
 Training docs we have: paper §experiments (high level); Detectron notebooks in
 this repo (recipes, no frozen `config.yaml` beside weights); YOLO
 `ckpt['train_args']` (authoritative for that file).
-
-### Not BaDLAD finetunes (init / public base)
-
-The old README “Model Weights” Drive folder
-([layoutparserweights](https://drive.google.com/drive/folders/1CR3UkFA6hbPU1YxnjuHxB4ig-CMRjlmf))
-contains:
-
-| File | What (verified) |
-| --- | --- |
-| `PubLayNet_mask_rcnn_R_50_FPN_3x/…/model_final.pth` | Official LayoutParser PubLayNet **base** (sha256 = HF `layoutparser/detectron2`) |
-| `PubLayNet_faster_rcnn_R_50_FPN_3x/…/model_final.pth` | Same — official PubLayNet **base** Faster R-CNN |
-| `yolo-best.pt.zip` | BaDLAD YOLOv8m-seg (see above) |
-
-PubLayNet files are training **init**, not Table 3 scored Detectron checkpoints.
 
 ## Leaderboard
 
