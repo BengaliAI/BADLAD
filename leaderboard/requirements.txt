@@ -1,0 +1,15 @@
+# Pinned deps matching the conda pytorch_env used for the 2026-07-25 baseline.
+# detectron2 must be installed from source (needs CUDA toolkit at build time):
+#   pip install 'git+https://github.com/facebookresearch/detectron2.git'
+torch==2.5.1
+torchvision==0.20.1
+detectron2 @ git+https://github.com/facebookresearch/detectron2.git@02b5c4e295e990042a714712c21dc79b731e8833
+pycocotools==2.0.11
+opencv-python-headless==4.10.0
+numpy==2.0.1
+pandas==2.3.2
+tqdm==4.67.1
+fvcore==0.1.5.post20221221
+iopath==0.1.9
+omegaconf==2.3.1
+Pillow==11.3.0

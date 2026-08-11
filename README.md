@@ -12,7 +12,15 @@ Kaggle Competition: https://www.kaggle.com/competitions/dlsprint2/data
 ## Leaderboard
 
 Maintainer-run evaluation on the private paper hidden test (13 328 images, COCO mask AP).
-Decode + score scripts live in [`leaderboard/`](leaderboard/); set up with `cd leaderboard && uv sync`.
+Decode + score scripts live in [`leaderboard/`](leaderboard/).
+
+```bash
+cd leaderboard
+uv sync                          # installs everything except detectron2
+uv pip install 'git+https://github.com/facebookresearch/detectron2.git'  # needs CUDA toolkit
+```
+
+Full pinned versions in `leaderboard/requirements.txt`; `uv.lock` covers the uv-resolvable subset.
 
 ### Baseline vs paper Table 3 (2026-07-25)
 
