@@ -1,0 +1,90 @@
+{
+  "model_id": "bengaliAI/badlad-mrcnn-paper",
+  "model_url": "https://huggingface.co/bengaliAI/badlad-mrcnn-paper",
+  "mask_map": 0.3312011493823482,
+  "mask_map50": 0.5577473268791724,
+  "mask_map_by_class": {
+    "paragraph": 0.6084703625735992,
+    "text_box": 0.23088078374254264,
+    "image": 0.4105895930982068,
+    "table": 0.07486385811504405
+  },
+  "bbox_map": 0.34323478241681393,
+  "bbox_map50": 0.5616775947439735,
+  "bbox_map_by_class": {
+    "paragraph": 0.6439847504444027,
+    "text_box": 0.2253546497440547,
+    "image": 0.43028705020734465,
+    "table": 0.07331267927145371
+  },
+  "mask_map_by_domain": {
+    "Government Documents": {
+      "mask_map": 0.2605410123672218,
+      "mask_map_by_class": {
+        "paragraph": 0.49432121925775363,
+        "text_box": 0.23663208977693145,
+        "image": 0.26062488723395116,
+        "table": 0.050585853200251045
+      },
+      "n_images": 514
+    },
+    "Historical Newspapers": {
+      "mask_map": 0.33979598826407353,
+      "mask_map_by_class": {
+        "paragraph": 0.6032608331796431,
+        "text_box": 0.18293638046015046,
+        "image": 0.5729867394165006,
+        "table": 0.0
+      },
+      "n_images": 345
+    },
+    "Liberation War Documents": {
+      "mask_map": 0.3479428399872126,
+      "mask_map_by_class": {
+        "paragraph": 0.7114346203637232,
+        "text_box": 0.26824697779876866,
+        "image": 0.010956858680390254,
+        "table": 0.40113290310596844
+      },
+      "n_images": 402
+    },
+    "Magazine and Books": {
+      "mask_map": 0.3356713879741507,
+      "mask_map_by_class": {
+        "paragraph": 0.6176142563405121,
+        "text_box": 0.2533860477185935,
+        "image": 0.44897590292569706,
+        "table": 0.022709344911799923
+      },
+      "n_images": 11674
+    },
+    "New Newspapers": {
+      "mask_map": 0.25421359208002564,
+      "mask_map_by_class": {
+        "paragraph": 0.41394390631495703,
+        "text_box": 0.13145746654288426,
+        "image": 0.4523440845711721,
+        "table": 0.019108910891089105
+      },
+      "n_images": 65
+    },
+    "Property Deeds": {
+      "mask_map": 0.17184335118645058,
+      "mask_map_by_class": {
+        "paragraph": 0.3804313731572241,
+        "text_box": 0.1422785356006308,
+        "image": 0.13260638646935613,
+        "table": 0.03205710951859123
+      },
+      "n_images": 328
+    }
+  },
+  "backend": "detectron2_mask_rcnn_R50_FPN",
+  "scorer_commit": "",
+  "decode_commit": "",
+  "evaluated_at": "2026-07-25",
+  "requested_by": "maintainer",
+  "notes": "Paper Mask R-CNN baseline seed; score_thresh=0.05; domains from tracker prefixes",
+  "n_images_gold": 13328,
+  "n_pred_instances": 607226
+}

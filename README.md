@@ -25,12 +25,32 @@ PubLayNet Detectron weights that appear beside older Drive dumps are LayoutParse
 
 ## Leaderboard
 
-Maintainer-run evaluation on the private paper hidden test (13 328 images, COCO mask AP).
-Decode + score scripts live in [`leaderboard/`](leaderboard/).
+Public mask-mAP board on the **private** BaDLAD paper hidden test. Test images and gold
+are **not** released. Scores are produced by Bengali.AI maintainers.
+
+| | |
+| --- | --- |
+| **Board** | https://huggingface.co/spaces/bengaliAI/badlad-dla-leaderboard |
+| **Results table** | https://huggingface.co/datasets/bengaliAI/badlad-dla-results |
+| **Public train data** | https://www.kaggle.com/datasets/reasat/badlad-train |
+
+### How to get your model evaluated
+
+1. Put a downloadable checkpoint on the Hub (or another stable URL).
+2. Open a **[BaDLAD DLA evaluation request](https://github.com/BengaliAI/BADLAD/issues/new)** issue.
+3. Maintainers run decode on the closed test set and publish **mask mAP only** (predictions are not returned).
+
+Maintainer tooling lives in [`leaderboard/`](leaderboard/).
 
 ```bash
 uv sync                          # installs everything except detectron2
 uv pip install 'git+https://github.com/facebookresearch/detectron2.git'  # needs CUDA toolkit
+```
+
+```bash
+# publish a scored metrics.json (scores only — never hyps)
+uv run python leaderboard/publish_results.py --metrics path/to/metrics.json --dry-run
+uv run python leaderboard/publish_results.py --metrics path/to/metrics.json --publish
 ```
 
 Full pinned versions in `requirements.txt`; `uv.lock` covers the uv-resolvable subset.
