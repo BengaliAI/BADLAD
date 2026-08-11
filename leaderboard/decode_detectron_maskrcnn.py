@@ -17,15 +17,24 @@ import torch
 from tqdm import tqdm
 
 
-def build_predictor(weights: Path, score_thresh: float, device: str, out_dir: Path | None = None):
+def build_predictor(
+    weights: Path,
+    score_thresh: float,
+    device: str,
+    arch: str = "mask",
+    out_dir: Path | None = None,
+):
     from detectron2 import model_zoo
     from detectron2.config import get_cfg
     from detectron2.engine import DefaultPredictor
 
+    cfg_name = {
+        "mask": "COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml",
+        "faster": "COCO-Detection/faster_rcnn_R_50_FPN_3x.yaml",
+    }[arch]
+
     cfg = get_cfg()
-    cfg.merge_from_file(
-        model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml")
-    )
+    cfg.merge_from_file(model_zoo.get_config_file(cfg_name))
     cfg.MODEL.ROI_HEADS.NUM_CLASSES = 4
     cfg.MODEL.WEIGHTS = str(weights)
     cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = score_thresh
@@ -74,6 +83,12 @@ def main() -> None:
     p.add_argument("--weights", type=Path, required=True)
     p.add_argument("--out-dir", type=Path, required=True)
     p.add_argument("--score-thresh", type=float, default=0.05)
+    p.add_argument(
+        "--arch",
+        choices=("mask", "faster"),
+        default="mask",
+        help="mask = Mask R-CNN; faster = Faster R-CNN (bbox only)",
+    )
     p.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     p.add_argument("--limit", type=int, default=0, help="If >0, only first N images (smoke)")
     p.add_argument("--save-every", type=int, default=50)
@@ -101,7 +116,9 @@ def main() -> None:
         done = set(json.loads(done_path.read_text()))
 
     print(f"device={args.device} already_done={len(done)} total={len(images)}", flush=True)
-    predictor = build_predictor(args.weights, args.score_thresh, args.device, args.out_dir)
+    predictor = build_predictor(
+        args.weights, args.score_thresh, args.device, args.arch, args.out_dir
+    )
 
     pending = [p for p in images if name_to_id[p.name] not in done]
     for n, path in enumerate(tqdm(pending, desc="decode"), 1):
@@ -121,6 +138,7 @@ def main() -> None:
     done_path.write_text(json.dumps(sorted(done)))
     meta = {
         "weights": str(args.weights),
+        "arch": args.arch,
         "score_thresh": args.score_thresh,
         "device": args.device,
         "n_images": len(done),

@@ -128,8 +128,14 @@ def main() -> None:
             coco_gt = COCO(str(tmp))
             img_ids = set(coco_gt.getImgIds())
             preds_f = [x for x in preds_sub if int(x["image_id"]) in img_ids]
-            # silence summarize if quiet: redirect via monkeypatch of print? keep simple
-            segm = _run_eval(coco_gt, preds_f, "segm")
+            has_seg = any("segmentation" in x for x in preds_f)
+            if has_seg:
+                segm = _run_eval(coco_gt, preds_f, "segm")
+            else:
+                segm = {
+                    "overall": {k: float("nan") for k in ["AP", "AP50", "AP75", "APs", "APm", "APl"]},
+                    "by_class": {},
+                }
             bbox = _run_eval(coco_gt, preds_f, "bbox")
         finally:
             tmp.unlink(missing_ok=True)

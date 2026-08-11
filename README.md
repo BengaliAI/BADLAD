@@ -5,9 +5,41 @@ While strides have been made in deep learning based Bengali Optical Character Re
 
 Dataset: https://www.kaggle.com/datasets/reasat/badlad-train
 
-Model Weights: https://drive.google.com/drive/folders/1CR3UkFA6hbPU1YxnjuHxB4ig-CMRjlmf?usp=sharing
-
 Kaggle Competition: https://www.kaggle.com/competitions/dlsprint2/data
+
+## Models (inventory — verified facts)
+
+Paper Table 3 has 7 configs. The files below are what we currently have on disk /
+public hosts. Table 3 membership is labeled cautiously.
+
+### BaDLAD-trained (or production) weights
+
+| ID / path | What | sha256 (prefix) | Table 3 |
+| --- | --- | --- | --- |
+| `maskrcnn_scratch_10k_iter/model_final.pth` ([HF](https://huggingface.co/bengaliAI/badlad-mrcnn-paper)) | Detectron Mask R-CNN R50 (mask head) | `d3b663…` | **likely** M-RCNN\|ImgNet\|Mask (domain AP match; not proven identical to original run) |
+| `train_finetuned_10k_iter/model_final.pth` | Detectron Faster R-CNN (bbox only) | `bd507a…` | **unverified** (some F-RCNN\|BBox row) |
+| `yolo-best` / `badlad-yolov8-best` | YOLOv8m-seg (Ultralytics; args in ckpt) | `890e666…` | **unverified** (paper says 100 ep / bs8; this ckpt is 20 ep / bs32) |
+
+Detectron finetunes live under Drive `DLA_Project/badlad_trained/`. YOLO also
+ships as `layoutparserweights/yolo-best.pt.zip` and is the bbocr layout stage.
+
+Training docs we have: paper §experiments (high level); Detectron notebooks in
+this repo (recipes, no frozen `config.yaml` beside weights); YOLO
+`ckpt['train_args']` (authoritative for that file).
+
+### Not BaDLAD finetunes (init / public base)
+
+The old README “Model Weights” Drive folder
+([layoutparserweights](https://drive.google.com/drive/folders/1CR3UkFA6hbPU1YxnjuHxB4ig-CMRjlmf))
+contains:
+
+| File | What (verified) |
+| --- | --- |
+| `PubLayNet_mask_rcnn_R_50_FPN_3x/…/model_final.pth` | Official LayoutParser PubLayNet **base** (sha256 = HF `layoutparser/detectron2`) |
+| `PubLayNet_faster_rcnn_R_50_FPN_3x/…/model_final.pth` | Same — official PubLayNet **base** Faster R-CNN |
+| `yolo-best.pt.zip` | BaDLAD YOLOv8m-seg (see above) |
+
+PubLayNet files are training **init**, not Table 3 scored Detectron checkpoints.
 
 ## Leaderboard
 
@@ -21,11 +53,12 @@ uv pip install 'git+https://github.com/facebookresearch/detectron2.git'  # needs
 
 Full pinned versions in `requirements.txt`; `uv.lock` covers the uv-resolvable subset.
 
-### Baseline vs paper Table 3 (2026-07-25)
+### Local replay vs paper (2026-07-25) — likely M-RCNN\|ImgNet\|Mask
 
-Mask R-CNN R50-FPN (ImageNet-scratch, `score_thresh=0.05`). Four domains match paper
-to < 0.1 AP; Government Documents and Property Deeds are consistently higher locally —
-performance seems to have improved; needs investigation.
+Checkpoint: `maskrcnn_scratch_10k_iter`, `score_thresh=0.05`. Four domains match
+paper to < 0.1 AP; Government Documents and Property Deeds are higher locally —
+needs investigation. This is a **likely** Table 3 match, not a claim of bit-identical
+reproduction of the original paper run.
 
 **Mask AP ×100 — local / paper (M-RCNN | ImgNet | Mask)**
 
